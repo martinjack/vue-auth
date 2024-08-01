@@ -1,5 +1,5 @@
 /*!
- * @websanova/vue-auth v4.2.1
+ * @jackmartin/vue-auth v4.2.2
  * https://websanova.com/docs/vue-auth
  * Released under the MIT License.
  */
@@ -230,79 +230,79 @@ var __auth = null;
 var __defaultOptions = {
   // Variables
 
-  rolesKey: 'roles',
-  rememberKey: 'auth_remember',
-  staySignedInKey: 'auth_stay_signed_in',
-  tokenDefaultKey: 'auth_token_default',
-  tokenImpersonateKey: 'auth_token_impersonate',
-  stores: ['storage', 'cookie'],
+  rolesKey: "roles",
+  rememberKey: "auth_remember",
+  staySignedInKey: "auth_stay_signed_in",
+  tokenDefaultKey: "auth_token_default",
+  tokenImpersonateKey: "auth_token_impersonate",
+  stores: ["storage", "cookie"],
   cookie: {
-    Path: '/',
+    Path: "/",
     Domain: null,
     Secure: true,
     Expires: 12096e5,
-    SameSite: 'None'
+    SameSite: "None"
   },
   // Redirects
 
   authRedirect: {
-    path: '/login'
+    path: "/login"
   },
   forbiddenRedirect: {
-    path: '/403'
+    path: "/403"
   },
   notFoundRedirect: {
-    path: '/404'
+    path: "/404"
   },
   // Http
 
   registerData: {
-    url: 'auth/register',
-    method: 'POST',
-    redirect: '/login',
+    url: "auth/register",
+    method: "POST",
+    redirect: "/login",
     autoLogin: false
   },
   loginData: {
-    url: 'auth/login',
-    method: 'POST',
-    redirect: '/',
+    url: "auth/login",
+    method: "POST",
+    redirect: "/",
     fetchUser: true,
     staySignedIn: true
   },
   logoutData: {
-    url: 'auth/logout',
-    method: 'POST',
-    redirect: '/',
+    url: "auth/logout",
+    method: "POST",
+    redirect: "/",
     makeRequest: false
   },
   fetchData: {
-    url: 'auth/user',
-    method: 'GET',
+    url: "auth/user",
+    method: "GET",
     enabled: true
   },
   refreshData: {
-    url: 'auth/refresh',
-    method: 'GET',
+    url: "auth/refresh",
+    method: "GET",
     enabled: true,
     interval: 30
   },
   impersonateData: {
-    url: 'auth/impersonate',
-    method: 'POST',
-    redirect: '/',
+    url: "auth/impersonate",
+    method: "POST",
+    redirect: "/",
     fetchUser: true
   },
   unimpersonateData: {
-    url: 'auth/unimpersonate',
-    method: 'POST',
-    redirect: '/admin',
+    url: "auth/unimpersonate",
+    method: "POST",
+    redirect: "/admin",
     fetchUser: true,
     makeRequest: false
   },
   oauth2Data: {
-    url: 'auth/social',
-    method: 'POST',
-    redirect: '/',
+    url: "auth/social",
+    method: "POST",
+    redirect: "/",
     fetchUser: true
   },
   // External
@@ -329,7 +329,7 @@ function _getAuthMeta(transition) {
     auth = transition.to.auth;
   } else {
     authRoutes = transition.matched.filter(function (route) {
-      return Object.prototype.hasOwnProperty.call(route.meta, 'auth');
+      return Object.prototype.hasOwnProperty.call(route.meta, "auth");
     });
 
     // matches the nested route, the last one in the list
@@ -344,7 +344,7 @@ function _getCookieDomain() {
 }
 function _getUrl() {
   var port = window.location.port;
-  return window.location.protocol + '//' + window.location.hostname + (port ? ':' + port : '');
+  return window.location.protocol + "//" + window.location.hostname + (port ? ":" + port : "");
 }
 function _getRemember() {
   return get$2.call(__auth, __auth.options.rememberKey);
@@ -361,7 +361,7 @@ function _setAuthenticated(authenticated) {
 }
 function _setStaySignedIn(staySignedIn) {
   if (staySignedIn === true) {
-    set$2.call(__auth, __auth.options.staySignedInKey, 'true', false);
+    set$2.call(__auth, __auth.options.staySignedInKey, "true", false);
   } else {
     remove$2.call(__auth, __auth.options.staySignedInKey);
   }
@@ -386,11 +386,11 @@ function _parseUserResponseData(res) {
   return __auth.options.parseUserData(__auth.drivers.http.httpData(res));
 }
 function _parseRedirectUri(uri) {
-  uri = uri || '';
+  uri = uri || "";
   if (/^https?:\/\//.test(uri)) {
     return uri;
   }
-  return _getUrl() + '/' + uri.replace(/^\/|\/$/g, '');
+  return _getUrl() + "/" + uri.replace(/^\/|\/$/g, "");
 }
 function _parseRequestIntercept(req) {
   var token, tokenName;
@@ -459,21 +459,21 @@ function _processAuthenticated(cb) {
   }
 }
 function _processTransitionEach(transition, routeAuth, cb) {
-  var authRedirect = (routeAuth || '').redirect || __auth.options.authRedirect,
-    forbiddenRedirect = (routeAuth || '').forbiddenRedirect || (routeAuth || '').redirect || __auth.options.forbiddenRedirect,
-    notFoundRedirect = (routeAuth || '').notFoundRedirect || (routeAuth || '').redirect || __auth.options.notFoundRedirect,
-    rolesKey = (routeAuth || '').rolesKey || __auth.options.rolesKey;
-  routeAuth = toArray((routeAuth || '').roles !== undefined ? routeAuth.roles : routeAuth);
+  var authRedirect = (routeAuth || "").redirect || __auth.options.authRedirect,
+    forbiddenRedirect = (routeAuth || "").forbiddenRedirect || (routeAuth || "").redirect || __auth.options.forbiddenRedirect,
+    notFoundRedirect = (routeAuth || "").notFoundRedirect || (routeAuth || "").redirect || __auth.options.notFoundRedirect,
+    rolesKey = (routeAuth || "").rolesKey || __auth.options.rolesKey;
+  routeAuth = toArray((routeAuth || "").roles !== undefined ? routeAuth.roles : routeAuth);
   if (routeAuth && (routeAuth === true || routeAuth.constructor === Array || isObject(routeAuth))) {
     if (!__auth.check()) {
       __auth.transitionRedirectType = 401;
-      if (typeof authRedirect === 'function') {
+      if (typeof authRedirect === "function") {
         authRedirect = authRedirect(transition);
       }
       cb.call(__auth, authRedirect);
     } else if ((routeAuth.constructor === Array || isObject(routeAuth)) && !compare(routeAuth, getProperty(__auth.$vm.state.data || {}, rolesKey))) {
       __auth.transitionRedirectType = 403;
-      if (typeof forbiddenRedirect === 'function') {
+      if (typeof forbiddenRedirect === "function") {
         forbiddenRedirect = forbiddenRedirect(transition);
       }
       cb.call(__auth, forbiddenRedirect);
@@ -490,7 +490,7 @@ function _processTransitionEach(transition, routeAuth, cb) {
     }
   } else if (routeAuth === false && __auth.check()) {
     __auth.transitionRedirectType = 404;
-    if (typeof notFoundRedirect === 'function') {
+    if (typeof notFoundRedirect === "function") {
       notFoundRedirect = notFoundRedirect(transition);
     }
     cb.call(__auth, notFoundRedirect);
@@ -558,7 +558,7 @@ function _initVm(Vue) {
 function _initDriverCheck() {
   var msg;
   var i, ii;
-  var drivers = ['auth', 'http', 'router'];
+  var drivers = ["auth", "http", "router"];
   for (i = 0, ii = drivers.length; i < ii; i++) {
     if (!__auth.drivers[drivers[i]]) {
       console.error('Error (@websanova/vue-auth): "' + drivers[i] + '" driver must be set.');
@@ -567,7 +567,7 @@ function _initDriverCheck() {
     if (__auth.drivers[drivers[i]].init) {
       msg = __auth.drivers[drivers[i]].init.call(__auth);
       if (msg) {
-        console.error('Error (@websanova/vue-auth): ' + msg);
+        console.error("Error (@websanova/vue-auth): " + msg);
         return false;
       }
     }
@@ -582,7 +582,6 @@ function _initRefreshInterval() {
     }, __auth.options.refreshData.interval * 1000 * 60); // In minutes.
   }
 }
-
 function _initInterceptors() {
   __auth.drivers.http.interceptor.call(__auth, _parseRequestIntercept, _parseResponseIntercept);
   __auth.drivers.router.beforeEach.call(__auth, _processRouterBeforeEach, _processTransitionEach, _setTransitions, _getAuthMeta);
@@ -654,11 +653,14 @@ Auth.prototype.token = function (name, token, expires) {
 };
 Auth.prototype.fetch = function (data) {
   data = extend(__auth.options.fetchData, data);
-  return new Promise(function (resolve, reject) {
-    __auth.drivers.http.http.call(__auth, data).then(function (res) {
-      _processFetch(_parseUserResponseData(res), data.redirect);
+  return new Promise(async function (resolve, reject) {
+    try {
+      const res = await __auth.drivers.http.http.call(__auth, data);
+      await _processFetch(await _parseUserResponseData(res), data.redirect);
       resolve(res);
-    }, reject);
+    } catch (err) {
+      reject(err);
+    }
   });
 };
 Auth.prototype.refresh = function (data) {
@@ -688,20 +690,21 @@ Auth.prototype.login = function (data) {
   data = extend(__auth.options.loginData, data);
   _setRemember(data.remember);
   _setStaySignedIn(data.staySignedIn);
-  return new Promise(function (resolve, reject) {
-    __auth.drivers.http.http.call(__auth, data).then(function (res) {
+  return new Promise(async function (resolve, reject) {
+    try {
+      const res = await __auth.drivers.http.http.call(__auth, data);
       if (data.fetchUser || data.fetchUser === undefined && __auth.options.fetchData.enabled) {
-        __auth.fetch({
+        await __auth.fetch({
           redirect: data.redirect
         }).then(resolve, reject);
       } else {
-        _processFetch(_parseUserResponseData(res), data.redirect);
+        await _processFetch(await _parseUserResponseData(res), data.redirect);
         resolve(res);
       }
-    }, function (res) {
+    } catch (err) {
       _setAuthenticated(false);
-      reject(res);
-    });
+      reject(err);
+    }
   });
 };
 Auth.prototype.remember = function (val) {
@@ -778,7 +781,7 @@ Auth.prototype.oauth2 = function (type, data) {
         data.state = JSON.parse(decodeURIComponent(data.state));
       }
     } catch (e) {
-      console.error('vue-auth:error There was an issue retrieving the state data.');
+      console.error("vue-auth:error There was an issue retrieving the state data.");
       data.state = data.state || {};
     }
     data = extend(__auth.options.oauth2Data, [data.state, data]);
@@ -791,9 +794,9 @@ Auth.prototype.oauth2 = function (type, data) {
   data.params.state = JSON.stringify(data.params.state || {});
   data.params.redirect_uri = _parseRedirectUri(data.params.redirect_uri);
   Object.keys(data.params).forEach(key => {
-    params.push(key + '=' + encodeURIComponent(data.params[key]));
+    params.push(key + "=" + encodeURIComponent(data.params[key]));
   });
-  window.open(data.url + '?' + params.join('&'), (data.window || {}).name || '_self', (data.window || {}).specs || {}, (data.window || {}).replace !== false);
+  window.open(data.url + "?" + params.join("&"), (data.window || {}).name || "_self", (data.window || {}).specs || {}, (data.window || {}).replace !== false);
 };
 Auth.prototype.enableImpersonate = function () {
   if (__auth.impersonating()) {

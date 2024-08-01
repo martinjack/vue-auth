@@ -2,6 +2,10 @@
 
 A simple light-weight authentication library for Vue.js
 
+## Install
+```sh
+npm i @jackmartin/vue-auth
+```
 
 ## Sponsor
 

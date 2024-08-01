@@ -10,17 +10,17 @@
     (global.VueAuth = factory());
 }(this, (function () { 'use strict';
 
-    var facebook = {
-      url: 'https://www.facebook.com/v2.5/dialog/oauth',
+    var auth0 = {
+      url: '',
       params: {
         client_id: '',
-        redirect_uri: 'login/facebook',
+        redirect_uri: 'login/auth0',
         response_type: 'code',
-        scope: 'email',
+        scope: 'openid profile email',
         state: {}
       }
     };
 
-    return facebook;
+    return auth0;
 
 })));

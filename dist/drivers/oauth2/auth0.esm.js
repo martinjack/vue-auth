@@ -4,17 +4,15 @@
  * Released under the MIT License.
  */
 
-'use strict';
-
-var google = {
-  url: 'https://accounts.google.com/o/oauth2/auth',
+var auth0 = {
+  url: '',
   params: {
     client_id: '',
-    redirect_uri: 'login/google',
+    redirect_uri: 'login/auth0',
     response_type: 'code',
-    scope: 'email',
+    scope: 'openid profile email',
     state: {}
   }
 };
 
-module.exports = google;
+export default auth0;
